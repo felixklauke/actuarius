@@ -24,17 +24,15 @@
 
 package de.d3adspace.actuarius.server;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import de.d3adspace.actuarius.server.module.ActuariusModule;
-
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusServerFactory {
+public class ActuariusConstants {
 
-    public static IActuariusServer createActuariusServer() {
-        Injector injector = Guice.createInjector(new ActuariusModule());
-        return injector.getInstance(IActuariusServer.class);
-    }
+    public static final String BOSS_GROUP_PREFIX = "Actuarius Boss Thread #";
+
+    public static final String WORKER_GROUP_PREFIX = "Actuarius Worker Thread #";
+
+    public static final int WORKER_GROUP_THREAD_COUNT = 4;
+    public static final int BOSS_GROUP_THREAD_COUNT = 1;
 }

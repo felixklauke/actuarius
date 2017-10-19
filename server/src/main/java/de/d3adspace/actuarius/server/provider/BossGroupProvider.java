@@ -22,19 +22,21 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server;
+package de.d3adspace.actuarius.server.provider;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import de.d3adspace.actuarius.server.module.ActuariusModule;
+import de.d3adspace.actuarius.server.annotation.BossGroupFactory;
+import de.d3adspace.actuarius.server.annotation.BossGroupThreadCount;
+
+import javax.inject.Inject;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusServerFactory {
+public class BossGroupProvider extends AbstractEventLoopGroupProvider {
 
-    public static IActuariusServer createActuariusServer() {
-        Injector injector = Guice.createInjector(new ActuariusModule());
-        return injector.getInstance(IActuariusServer.class);
+    @Inject
+    public BossGroupProvider(@BossGroupFactory ThreadFactory threadFactory, @BossGroupThreadCount int threadAmount) {
+        super(threadFactory, threadAmount);
     }
 }

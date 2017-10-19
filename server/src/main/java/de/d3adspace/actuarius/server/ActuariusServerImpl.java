@@ -24,13 +24,47 @@
 
 package de.d3adspace.actuarius.server;
 
+import de.d3adspace.actuarius.server.annotation.BossGroup;
+import de.d3adspace.actuarius.server.annotation.WorkerGroup;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.ServerChannel;
+
+import javax.inject.Inject;
+
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
 public class ActuariusServerImpl implements IActuariusServer {
+
+    private final ServerBootstrap serverBootstrap;
+    private final EventLoopGroup bossGroup;
+    private final EventLoopGroup workerGroup;
+    private final Class<? extends ServerChannel> channelClass;
+    private final ChannelInitializer<Channel> channelInitializer;
+
+    @Inject
+    public ActuariusServerImpl(ServerBootstrap serverBootstrap, @BossGroup EventLoopGroup bossGroup, @WorkerGroup EventLoopGroup workerGroup, Class<? extends ServerChannel> channelClass, ChannelInitializer<Channel> channelInitializer) {
+        this.serverBootstrap = serverBootstrap;
+        this.bossGroup = bossGroup;
+        this.workerGroup = workerGroup;
+        this.channelClass = channelClass;
+        this.channelInitializer = channelInitializer;
+    }
+
     @Override
     public void start() {
-
+        try {
+            serverBootstrap
+                    .group(bossGroup, workerGroup)
+                    .channel(channelClass)
+                    .childHandler(channelInitializer)
+                    .bind(53).sync();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
