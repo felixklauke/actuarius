@@ -28,4 +28,9 @@ package de.d3adspace.actuarius.server;
  * @author Felix Klauke <fklauke@itemis.de>
  */
 public interface IActuariusServer {
+    void start();
+
+    void stop();
+
+    boolean isRunning();
 }
