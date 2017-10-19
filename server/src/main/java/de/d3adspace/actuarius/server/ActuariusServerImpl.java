@@ -28,4 +28,18 @@ package de.d3adspace.actuarius.server;
  * @author Felix Klauke <fklauke@itemis.de>
  */
 public class ActuariusServerImpl implements IActuariusServer {
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void stop() {
+
+    }
+
+    @Override
+    public boolean isRunning() {
+        return false;
+    }
 }

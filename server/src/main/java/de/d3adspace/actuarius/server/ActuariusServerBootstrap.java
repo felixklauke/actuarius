@@ -28,4 +28,9 @@ package de.d3adspace.actuarius.server;
  * @author Felix Klauke <fklauke@itemis.de>
  */
 public class ActuariusServerBootstrap {
+
+    public static void main(String[] args) {
+        IActuariusServer actuariusServer = ActuariusServerFactory.createActuariusServer();
+        actuariusServer.start();
+    }
 }
