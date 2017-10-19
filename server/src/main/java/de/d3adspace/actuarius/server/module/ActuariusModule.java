@@ -25,13 +25,48 @@
 package de.d3adspace.actuarius.server.module;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.TypeLiteral;
+import de.d3adspace.actuarius.server.ActuariusConstants;
+import de.d3adspace.actuarius.server.ActuariusServerImpl;
+import de.d3adspace.actuarius.server.IActuariusServer;
+import de.d3adspace.actuarius.server.annotation.*;
+import de.d3adspace.actuarius.server.provider.BossGroupProvider;
+import de.d3adspace.actuarius.server.provider.ChannelInitializerProvider;
+import de.d3adspace.actuarius.server.provider.WorkerGroupProvider;
+import de.d3adspace.actuarius.server.thread.BossThreadFactory;
+import de.d3adspace.actuarius.server.thread.WorkerThreadFactory;
+import de.d3adspace.actuarius.server.utils.NettyUtils;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.ServerChannel;
+
+import java.util.concurrent.ThreadFactory;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
 public class ActuariusModule extends AbstractModule {
 
+    @Override
     protected void configure() {
+        bindConstant().annotatedWith(BossGroupThreadCount.class).to(ActuariusConstants.BOSS_GROUP_THREAD_COUNT);
+        bindConstant().annotatedWith(WorkerGroupThreadCount.class).to(ActuariusConstants.WORKER_GROUP_THREAD_COUNT);
+        bindConstant().annotatedWith(BossGroupFactoryThreadNamePrefix.class).to(ActuariusConstants.BOSS_GROUP_PREFIX);
+        bindConstant().annotatedWith(WorkerGroupFactoryThreadNamePrefix.class).to(ActuariusConstants.WORKER_GROUP_PREFIX);
 
+        bind(new TypeLiteral<Class<? extends ServerChannel>>() {
+        }).toInstance(NettyUtils.getServerChannelClass());
+
+        bind(ThreadFactory.class).annotatedWith(BossGroupFactory.class).to(BossThreadFactory.class);
+        bind(ThreadFactory.class).annotatedWith(WorkerGroupFactory.class).to(WorkerThreadFactory.class);
+
+        bind(EventLoopGroup.class).annotatedWith(BossGroup.class).toProvider(BossGroupProvider.class);
+        bind(EventLoopGroup.class).annotatedWith(WorkerGroup.class).toProvider(WorkerGroupProvider.class);
+
+        bind(new TypeLiteral<ChannelInitializer<Channel>>() {
+        }).toProvider(ChannelInitializerProvider.class);
+
+        bind(IActuariusServer.class).to(ActuariusServerImpl.class);
     }
 }

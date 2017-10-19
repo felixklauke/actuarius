@@ -22,19 +22,19 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server;
+package de.d3adspace.actuarius.server.thread;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import de.d3adspace.actuarius.server.module.ActuariusModule;
+import de.d3adspace.actuarius.server.annotation.BossGroupFactoryThreadNamePrefix;
+
+import javax.inject.Inject;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusServerFactory {
+public class BossThreadFactory extends PrefixedThreadFactory {
 
-    public static IActuariusServer createActuariusServer() {
-        Injector injector = Guice.createInjector(new ActuariusModule());
-        return injector.getInstance(IActuariusServer.class);
+    @Inject
+    public BossThreadFactory(@BossGroupFactoryThreadNamePrefix String prefix) {
+        super(prefix);
     }
 }

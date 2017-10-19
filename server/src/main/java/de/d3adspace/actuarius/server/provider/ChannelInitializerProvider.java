@@ -22,19 +22,21 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server;
+package de.d3adspace.actuarius.server.provider;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import de.d3adspace.actuarius.server.module.ActuariusModule;
+import de.d3adspace.actuarius.server.initializer.ActuariusChannelInitializer;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelInitializer;
+
+import javax.inject.Provider;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusServerFactory {
+public class ChannelInitializerProvider implements Provider<ChannelInitializer<Channel>> {
 
-    public static IActuariusServer createActuariusServer() {
-        Injector injector = Guice.createInjector(new ActuariusModule());
-        return injector.getInstance(IActuariusServer.class);
+    @Override
+    public ChannelInitializer<Channel> get() {
+        return new ActuariusChannelInitializer();
     }
 }

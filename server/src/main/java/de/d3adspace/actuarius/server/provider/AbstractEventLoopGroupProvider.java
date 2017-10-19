@@ -22,19 +22,29 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server;
+package de.d3adspace.actuarius.server.provider;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import de.d3adspace.actuarius.server.module.ActuariusModule;
+import de.d3adspace.actuarius.server.utils.NettyUtils;
+import io.netty.channel.EventLoopGroup;
+
+import javax.inject.Provider;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusServerFactory {
+public class AbstractEventLoopGroupProvider implements Provider<EventLoopGroup> {
 
-    public static IActuariusServer createActuariusServer() {
-        Injector injector = Guice.createInjector(new ActuariusModule());
-        return injector.getInstance(IActuariusServer.class);
+    private final ThreadFactory threadFactory;
+    private final int threadAmount;
+
+    public AbstractEventLoopGroupProvider(ThreadFactory threadFactory, int threadAmount) {
+        this.threadFactory = threadFactory;
+        this.threadAmount = threadAmount;
+    }
+
+    @Override
+    public EventLoopGroup get() {
+        return NettyUtils.createEventLoopGroup(threadFactory, threadAmount);
     }
 }
