@@ -22,41 +22,18 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server;
+package de.d3adspace.actuarius.server.initializer;
 
-import de.d3adspace.actuarius.server.agent.IActuariusAgent;
-import de.d3adspace.actuarius.server.annotation.DatagramAgent;
-import de.d3adspace.actuarius.server.annotation.SocketAgent;
-
-import javax.inject.Inject;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.socket.DatagramChannel;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusServerImpl implements IActuariusServer {
-
-    private final IActuariusAgent datagramAgent;
-    private final IActuariusAgent socketAgent;
-
-    @Inject
-    public ActuariusServerImpl(@DatagramAgent IActuariusAgent datagramAgent, @SocketAgent IActuariusAgent socketAgent) {
-        this.datagramAgent = datagramAgent;
-        this.socketAgent = socketAgent;
-    }
+public class ActuariusDatagramChannelInitializer extends ChannelInitializer<DatagramChannel> {
 
     @Override
-    public void start() {
-        datagramAgent.bootstrap();
-        socketAgent.bootstrap();
-    }
+    protected void initChannel(DatagramChannel datagramChannel) throws Exception {
 
-    @Override
-    public void stop() {
-
-    }
-
-    @Override
-    public boolean isRunning() {
-        return datagramAgent.isRunning() && socketAgent.isRunning();
     }
 }

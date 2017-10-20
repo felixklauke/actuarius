@@ -29,9 +29,13 @@ import com.google.inject.TypeLiteral;
 import de.d3adspace.actuarius.server.ActuariusConstants;
 import de.d3adspace.actuarius.server.ActuariusServerImpl;
 import de.d3adspace.actuarius.server.IActuariusServer;
+import de.d3adspace.actuarius.server.agent.ActuariusDatagramAgent;
+import de.d3adspace.actuarius.server.agent.ActuariusSocketAgent;
+import de.d3adspace.actuarius.server.agent.IActuariusAgent;
 import de.d3adspace.actuarius.server.annotation.*;
+import de.d3adspace.actuarius.server.initializer.ActuariusChannelInitializer;
+import de.d3adspace.actuarius.server.initializer.ActuariusDatagramChannelInitializer;
 import de.d3adspace.actuarius.server.provider.BossGroupProvider;
-import de.d3adspace.actuarius.server.provider.ChannelInitializerProvider;
 import de.d3adspace.actuarius.server.provider.WorkerGroupProvider;
 import de.d3adspace.actuarius.server.thread.BossThreadFactory;
 import de.d3adspace.actuarius.server.thread.WorkerThreadFactory;
@@ -40,6 +44,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.ServerChannel;
+import io.netty.channel.socket.DatagramChannel;
 
 import java.util.concurrent.ThreadFactory;
 
@@ -58,6 +63,9 @@ public class ActuariusModule extends AbstractModule {
         bind(new TypeLiteral<Class<? extends ServerChannel>>() {
         }).toInstance(NettyUtils.getServerChannelClass());
 
+        bind(new TypeLiteral<Class<? extends DatagramChannel>>() {
+        }).toInstance(NettyUtils.getServerDatagramChannelClass());
+
         bind(ThreadFactory.class).annotatedWith(BossGroupFactory.class).to(BossThreadFactory.class);
         bind(ThreadFactory.class).annotatedWith(WorkerGroupFactory.class).to(WorkerThreadFactory.class);
 
@@ -65,7 +73,13 @@ public class ActuariusModule extends AbstractModule {
         bind(EventLoopGroup.class).annotatedWith(WorkerGroup.class).toProvider(WorkerGroupProvider.class);
 
         bind(new TypeLiteral<ChannelInitializer<Channel>>() {
-        }).toProvider(ChannelInitializerProvider.class);
+        }).to(ActuariusChannelInitializer.class);
+
+        bind(new TypeLiteral<ChannelInitializer<DatagramChannel>>() {
+        }).to(ActuariusDatagramChannelInitializer.class);
+
+        bind(IActuariusAgent.class).annotatedWith(DatagramAgent.class).to(ActuariusDatagramAgent.class);
+        bind(IActuariusAgent.class).annotatedWith(SocketAgent.class).to(ActuariusSocketAgent.class);
 
         bind(IActuariusServer.class).to(ActuariusServerImpl.class);
     }
