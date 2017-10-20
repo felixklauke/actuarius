@@ -45,7 +45,7 @@ public class ActuariusDatagramAgent implements IActuariusAgent {
     private final Class<? extends Channel> channelClass;
 
     @Inject
-    public ActuariusDatagramAgent(ChannelInitializer<DatagramChannel> datagramChannelChannelInitializer, @WorkerGroup EventLoopGroup workerGroup, Class<? extends Channel> channelClass) {
+    public ActuariusDatagramAgent(ChannelInitializer<DatagramChannel> datagramChannelChannelInitializer, @WorkerGroup EventLoopGroup workerGroup, Class<? extends DatagramChannel> channelClass) {
         this.datagramChannelChannelInitializer = datagramChannelChannelInitializer;
         this.workerGroup = workerGroup;
         this.channelClass = channelClass;
