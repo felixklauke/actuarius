@@ -33,17 +33,19 @@ import de.d3adspace.actuarius.server.agent.ActuariusDatagramAgent;
 import de.d3adspace.actuarius.server.agent.ActuariusSocketAgent;
 import de.d3adspace.actuarius.server.agent.IActuariusAgent;
 import de.d3adspace.actuarius.server.annotation.*;
+import de.d3adspace.actuarius.server.handler.ActuariusDnsQueryHandler;
 import de.d3adspace.actuarius.server.initializer.ActuariusChannelInitializer;
 import de.d3adspace.actuarius.server.initializer.ActuariusDatagramChannelInitializer;
 import de.d3adspace.actuarius.server.provider.BossGroupProvider;
 import de.d3adspace.actuarius.server.provider.WorkerGroupProvider;
+import de.d3adspace.actuarius.server.query.IQueryManager;
+import de.d3adspace.actuarius.server.query.QueryManagerImpl;
+import de.d3adspace.actuarius.server.repository.INameRepository;
+import de.d3adspace.actuarius.server.repository.NameRepositoryImpl;
 import de.d3adspace.actuarius.server.thread.BossThreadFactory;
 import de.d3adspace.actuarius.server.thread.WorkerThreadFactory;
 import de.d3adspace.actuarius.server.utils.NettyUtils;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.ServerChannel;
+import io.netty.channel.*;
 import io.netty.channel.socket.DatagramChannel;
 
 import java.util.concurrent.ThreadFactory;
@@ -77,6 +79,12 @@ public class ActuariusModule extends AbstractModule {
 
         bind(new TypeLiteral<ChannelInitializer<DatagramChannel>>() {
         }).to(ActuariusDatagramChannelInitializer.class);
+
+        bind(INameRepository.class).to(NameRepositoryImpl.class);
+
+        bind(IQueryManager.class).to(QueryManagerImpl.class);
+
+        bind(ChannelHandler.class).to(ActuariusDnsQueryHandler.class);
 
         bind(IActuariusAgent.class).annotatedWith(DatagramAgent.class).to(ActuariusDatagramAgent.class);
         bind(IActuariusAgent.class).annotatedWith(SocketAgent.class).to(ActuariusSocketAgent.class);

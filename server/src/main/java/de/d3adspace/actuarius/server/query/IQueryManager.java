@@ -22,22 +22,15 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.initializer;
+package de.d3adspace.actuarius.server.query;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.codec.dns.DnsQuery;
+import io.netty.handler.codec.dns.DnsResponse;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusChannelInitializer extends ChannelInitializer<Channel> {
+public interface IQueryManager {
 
-    @Override
-    protected void initChannel(Channel channel) throws Exception {
-        ChannelPipeline channelPipeline = channel.pipeline();
-
-        channelPipeline.addLast(new LoggingHandler());
-    }
+    DnsResponse processDnsQuery(DnsQuery dnsQuery);
 }

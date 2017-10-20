@@ -22,22 +22,29 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.initializer;
+package de.d3adspace.actuarius.server.handler;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.handler.logging.LoggingHandler;
+import de.d3adspace.actuarius.server.query.IQueryManager;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.dns.DnsQuery;
+
+import javax.inject.Inject;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusChannelInitializer extends ChannelInitializer<Channel> {
+public class ActuariusDnsQueryHandler extends SimpleChannelInboundHandler<DnsQuery> {
+
+    private final IQueryManager queryManager;
+
+    @Inject
+    public ActuariusDnsQueryHandler(IQueryManager queryManager) {
+        this.queryManager = queryManager;
+    }
 
     @Override
-    protected void initChannel(Channel channel) throws Exception {
-        ChannelPipeline channelPipeline = channel.pipeline();
-
-        channelPipeline.addLast(new LoggingHandler());
+    protected void channelRead0(ChannelHandlerContext ctx, DnsQuery msg) throws Exception {
+        ctx.writeAndFlush(queryManager.processDnsQuery(msg));
     }
 }
