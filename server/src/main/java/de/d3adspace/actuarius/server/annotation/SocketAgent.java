@@ -22,41 +22,20 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server;
+package de.d3adspace.actuarius.server.annotation;
 
-import de.d3adspace.actuarius.server.agent.IActuariusAgent;
-import de.d3adspace.actuarius.server.annotation.DatagramAgent;
-import de.d3adspace.actuarius.server.annotation.SocketAgent;
+import com.google.inject.BindingAnnotation;
 
-import javax.inject.Inject;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusServerImpl implements IActuariusServer {
-
-    private final IActuariusAgent datagramAgent;
-    private final IActuariusAgent socketAgent;
-
-    @Inject
-    public ActuariusServerImpl(@DatagramAgent IActuariusAgent datagramAgent, @SocketAgent IActuariusAgent socketAgent) {
-        this.datagramAgent = datagramAgent;
-        this.socketAgent = socketAgent;
-    }
-
-    @Override
-    public void start() {
-        datagramAgent.bootstrap();
-        socketAgent.bootstrap();
-    }
-
-    @Override
-    public void stop() {
-
-    }
-
-    @Override
-    public boolean isRunning() {
-        return datagramAgent.isRunning() && socketAgent.isRunning();
-    }
+@BindingAnnotation
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.PARAMETER)
+public @interface SocketAgent {
 }

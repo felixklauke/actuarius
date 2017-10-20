@@ -22,41 +22,14 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server;
-
-import de.d3adspace.actuarius.server.agent.IActuariusAgent;
-import de.d3adspace.actuarius.server.annotation.DatagramAgent;
-import de.d3adspace.actuarius.server.annotation.SocketAgent;
-
-import javax.inject.Inject;
+package de.d3adspace.actuarius.server.agent;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusServerImpl implements IActuariusServer {
+public interface IActuariusAgent {
 
-    private final IActuariusAgent datagramAgent;
-    private final IActuariusAgent socketAgent;
+    void bootstrap();
 
-    @Inject
-    public ActuariusServerImpl(@DatagramAgent IActuariusAgent datagramAgent, @SocketAgent IActuariusAgent socketAgent) {
-        this.datagramAgent = datagramAgent;
-        this.socketAgent = socketAgent;
-    }
-
-    @Override
-    public void start() {
-        datagramAgent.bootstrap();
-        socketAgent.bootstrap();
-    }
-
-    @Override
-    public void stop() {
-
-    }
-
-    @Override
-    public boolean isRunning() {
-        return datagramAgent.isRunning() && socketAgent.isRunning();
-    }
+    boolean isRunning();
 }

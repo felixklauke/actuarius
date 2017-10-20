@@ -22,21 +22,20 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.provider;
+package de.d3adspace.actuarius.server.annotation;
 
-import de.d3adspace.actuarius.server.initializer.ActuariusChannelInitializer;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
+import com.google.inject.BindingAnnotation;
 
-import javax.inject.Provider;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ChannelInitializerProvider implements Provider<ChannelInitializer<Channel>> {
-
-    @Override
-    public ChannelInitializer<Channel> get() {
-        return new ActuariusChannelInitializer();
-    }
+@BindingAnnotation
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.PARAMETER)
+public @interface DatagramAgent {
 }
