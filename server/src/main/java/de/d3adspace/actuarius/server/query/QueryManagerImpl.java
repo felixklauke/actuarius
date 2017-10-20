@@ -22,22 +22,33 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.initializer;
+package de.d3adspace.actuarius.server.query;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.handler.logging.LoggingHandler;
+import de.d3adspace.actuarius.server.repository.INameRepository;
+import io.netty.handler.codec.dns.*;
+
+import javax.inject.Inject;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusChannelInitializer extends ChannelInitializer<Channel> {
+public class QueryManagerImpl implements IQueryManager {
+
+    private final INameRepository nameRepository;
+
+    @Inject
+    public QueryManagerImpl(INameRepository nameRepository) {
+        this.nameRepository = nameRepository;
+    }
 
     @Override
-    protected void initChannel(Channel channel) throws Exception {
-        ChannelPipeline channelPipeline = channel.pipeline();
+    public DnsResponse processDnsQuery(DnsQuery dnsQuery) {
+        System.out.println(dnsQuery.toString());
 
-        channelPipeline.addLast(new LoggingHandler());
+        DatagramDnsQuery dnsMessage = (DatagramDnsQuery) dnsQuery;
+
+        DnsResponse response = new DatagramDnsResponse(dnsMessage.sender(), dnsMessage.recipient(), 0);
+        response.setRecord(DnsSection.ANSWER, new DefaultDnsPtrRecord("default", DnsRecord.CLASS_ANY, 10000, "216.58.206.3"));
+        return response;
     }
 }

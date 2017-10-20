@@ -22,22 +22,10 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.initializer;
-
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.handler.logging.LoggingHandler;
+package de.d3adspace.actuarius.server.repository;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusChannelInitializer extends ChannelInitializer<Channel> {
-
-    @Override
-    protected void initChannel(Channel channel) throws Exception {
-        ChannelPipeline channelPipeline = channel.pipeline();
-
-        channelPipeline.addLast(new LoggingHandler());
-    }
+public class NameRepositoryImpl implements INameRepository {
 }
