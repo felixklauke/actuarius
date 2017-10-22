@@ -22,12 +22,20 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.protocol;
+package de.d3adspace.actuarius.codec;
+
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.socket.DatagramPacket;
+import io.netty.handler.codec.MessageToMessageDecoder;
+
+import java.util.List;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public interface DNSQuery {
+public class DNSQueryDecoder extends MessageToMessageDecoder<DatagramPacket> {
 
+    protected void decode(ChannelHandlerContext ctx, DatagramPacket msg, List<Object> out) throws Exception {
 
+    }
 }
