@@ -24,8 +24,9 @@
 
 package de.d3adspace.actuarius.server.query;
 
+import de.d3adspace.actuarius.server.protocol.DNSQuery;
+import de.d3adspace.actuarius.server.protocol.DNSResponse;
 import de.d3adspace.actuarius.server.repository.INameRepository;
-import io.netty.handler.codec.dns.*;
 
 import javax.inject.Inject;
 
@@ -42,13 +43,9 @@ public class QueryManagerImpl implements IQueryManager {
     }
 
     @Override
-    public DnsResponse processDnsQuery(DnsQuery dnsQuery) {
+    public DNSResponse processDnsQuery(DNSQuery dnsQuery) {
         System.out.println(dnsQuery.toString());
 
-        DatagramDnsQuery dnsMessage = (DatagramDnsQuery) dnsQuery;
-
-        DnsResponse response = new DatagramDnsResponse(dnsMessage.sender(), dnsMessage.recipient(), 0);
-        response.setRecord(DnsSection.ANSWER, new DefaultDnsPtrRecord("default", DnsRecord.CLASS_ANY, 10000, "216.58.206.3"));
-        return response;
+        return null;
     }
 }

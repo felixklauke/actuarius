@@ -22,14 +22,29 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.repository;
+package de.d3adspace.actuarius.server.handler;
 
-import io.netty.resolver.dns.DnsNameResolver;
+import de.d3adspace.actuarius.server.protocol.DNSQuery;
+import de.d3adspace.actuarius.server.query.IQueryManager;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+
+import javax.inject.Inject;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class NameRepositoryImpl implements INameRepository {
+public class ActuariusDNSQueryHandler extends SimpleChannelInboundHandler<DNSQuery> {
 
-    DnsNameResolver
+    private final IQueryManager queryManager;
+
+    @Inject
+    public ActuariusDNSQueryHandler(IQueryManager queryManager) {
+        this.queryManager = queryManager;
+    }
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, DNSQuery msg) throws Exception {
+        ctx.writeAndFlush(queryManager.processDnsQuery(msg));
+    }
 }

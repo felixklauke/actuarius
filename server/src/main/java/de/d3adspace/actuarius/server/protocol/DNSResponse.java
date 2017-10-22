@@ -22,14 +22,10 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.repository;
-
-import io.netty.resolver.dns.DnsNameResolver;
+package de.d3adspace.actuarius.server.protocol;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class NameRepositoryImpl implements INameRepository {
-
-    DnsNameResolver
+public interface DNSResponse {
 }

@@ -24,13 +24,13 @@
 
 package de.d3adspace.actuarius.server.query;
 
-import io.netty.handler.codec.dns.DnsQuery;
-import io.netty.handler.codec.dns.DnsResponse;
+import de.d3adspace.actuarius.server.protocol.DNSQuery;
+import de.d3adspace.actuarius.server.protocol.DNSResponse;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
 public interface IQueryManager {
 
-    DnsResponse processDnsQuery(DnsQuery dnsQuery);
+    DNSResponse processDnsQuery(DNSQuery dnsQuery);
 }

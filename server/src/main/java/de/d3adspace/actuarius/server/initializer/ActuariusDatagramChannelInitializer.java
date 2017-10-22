@@ -28,8 +28,6 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.DatagramChannel;
-import io.netty.handler.codec.dns.DatagramDnsQueryDecoder;
-import io.netty.handler.codec.dns.DatagramDnsResponseEncoder;
 import io.netty.handler.logging.LoggingHandler;
 
 import javax.inject.Inject;
@@ -51,10 +49,5 @@ public class ActuariusDatagramChannelInitializer extends ChannelInitializer<Data
         ChannelPipeline channelPipeline = datagramChannel.pipeline();
 
         channelPipeline.addLast(new LoggingHandler());
-
-        channelPipeline.addLast(new DatagramDnsQueryDecoder());
-        channelPipeline.addLast(new DatagramDnsResponseEncoder());
-
-        channelPipeline.addLast(channelHandler);
     }
 }

@@ -22,29 +22,10 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.handler;
-
-import de.d3adspace.actuarius.server.query.IQueryManager;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.dns.DnsQuery;
-
-import javax.inject.Inject;
+package de.d3adspace.actuarius.server.protocol;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusDnsQueryHandler extends SimpleChannelInboundHandler<DnsQuery> {
-
-    private final IQueryManager queryManager;
-
-    @Inject
-    public ActuariusDnsQueryHandler(IQueryManager queryManager) {
-        this.queryManager = queryManager;
-    }
-
-    @Override
-    protected void channelRead0(ChannelHandlerContext ctx, DnsQuery msg) throws Exception {
-        ctx.writeAndFlush(queryManager.processDnsQuery(msg));
-    }
+public interface DNSMessage {
 }
