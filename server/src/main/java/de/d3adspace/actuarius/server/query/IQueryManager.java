@@ -24,8 +24,8 @@
 
 package de.d3adspace.actuarius.server.query;
 
-import de.d3adspace.actuarius.server.protocol.DNSQuery;
-import de.d3adspace.actuarius.server.protocol.DNSResponse;
+import de.d3adspace.actuarius.protocol.DNSQuery;
+import de.d3adspace.actuarius.protocol.DNSResponse;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>

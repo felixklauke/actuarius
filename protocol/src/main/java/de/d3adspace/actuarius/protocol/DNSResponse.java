@@ -22,12 +22,10 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.protocol;
+package de.d3adspace.actuarius.protocol;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public interface DNSQuery {
-
-
+public interface DNSResponse {
 }
