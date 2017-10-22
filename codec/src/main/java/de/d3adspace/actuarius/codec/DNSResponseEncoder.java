@@ -22,30 +22,20 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.query;
+package de.d3adspace.actuarius.codec;
 
-import de.d3adspace.actuarius.protocol.DNSQuery;
 import de.d3adspace.actuarius.protocol.DNSResponse;
-import de.d3adspace.actuarius.server.repository.INameRepository;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToMessageEncoder;
 
-import javax.inject.Inject;
+import java.util.List;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class QueryManagerImpl implements IQueryManager {
+public class DNSResponseEncoder extends MessageToMessageEncoder<DNSResponse> {
 
-    private final INameRepository nameRepository;
+    protected void encode(ChannelHandlerContext ctx, DNSResponse msg, List<Object> out) throws Exception {
 
-    @Inject
-    public QueryManagerImpl(INameRepository nameRepository) {
-        this.nameRepository = nameRepository;
-    }
-
-    @Override
-    public DNSResponse processDnsQuery(DNSQuery dnsQuery) {
-        System.out.println(dnsQuery.toString());
-
-        return null;
     }
 }

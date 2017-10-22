@@ -22,30 +22,10 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.query;
-
-import de.d3adspace.actuarius.protocol.DNSQuery;
-import de.d3adspace.actuarius.protocol.DNSResponse;
-import de.d3adspace.actuarius.server.repository.INameRepository;
-
-import javax.inject.Inject;
+package de.d3adspace.actuarius.protocol;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class QueryManagerImpl implements IQueryManager {
-
-    private final INameRepository nameRepository;
-
-    @Inject
-    public QueryManagerImpl(INameRepository nameRepository) {
-        this.nameRepository = nameRepository;
-    }
-
-    @Override
-    public DNSResponse processDnsQuery(DNSQuery dnsQuery) {
-        System.out.println(dnsQuery.toString());
-
-        return null;
-    }
+public interface DNSMessage {
 }
