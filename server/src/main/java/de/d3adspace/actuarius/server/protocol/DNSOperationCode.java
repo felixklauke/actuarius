@@ -22,29 +22,41 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.handler;
-
-import de.d3adspace.actuarius.server.protocol.DNSQuery;
-import de.d3adspace.actuarius.server.query.IQueryManager;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-
-import javax.inject.Inject;
+package de.d3adspace.actuarius.server.protocol;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusDNSQueryHandler extends SimpleChannelInboundHandler<DNSQuery> {
+public enum DNSOperationCode {
 
-    private final IQueryManager queryManager;
+    QUERY(0x01),
+    INVERSE_QUERY(0x01),
+    STATUS(0x02),
+    UNKNOWN(0x03),
+    NOTIFY(0x04),
+    UPDATE(0x05);
 
-    @Inject
-    public ActuariusDNSQueryHandler(IQueryManager queryManager) {
-        this.queryManager = queryManager;
+    private final byte codeId;
+
+    DNSOperationCode(byte codeId) {
+        this.codeId = codeId;
     }
 
-    @Override
-    protected void channelRead0(ChannelHandlerContext ctx, DNSQuery msg) throws Exception {
-        ctx.writeAndFlush(queryManager.processDnsQuery(msg));
+    DNSOperationCode(int codeId) {
+        this((byte) codeId);
+    }
+
+    public static DNSOperationCode getCodeViaId(int codeId) {
+        for (DNSOperationCode dnsOperationCode : values()) {
+            if (dnsOperationCode.getCodeId() == (byte) codeId) {
+                return dnsOperationCode;
+            }
+        }
+
+        return UNKNOWN;
+    }
+
+    public byte getCodeId() {
+        return codeId;
     }
 }
