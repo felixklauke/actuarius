@@ -104,6 +104,11 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.16.Final</version>
         </dependency>
+        <dependency>
+            <groupId>de.d3adspace</groupId>
+            <artifactId>actuarius-protocol</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
