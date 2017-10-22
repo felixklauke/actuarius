@@ -22,32 +22,12 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.initializer;
-
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.socket.DatagramChannel;
-import io.netty.handler.logging.LoggingHandler;
-
-import javax.inject.Inject;
+package de.d3adspace.actuarius.server.protocol;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusDatagramChannelInitializer extends ChannelInitializer<DatagramChannel> {
+public interface DNSQuery {
 
-    private final ChannelHandler channelHandler;
 
-    @Inject
-    public ActuariusDatagramChannelInitializer(ChannelHandler channelHandler) {
-        this.channelHandler = channelHandler;
-    }
-
-    @Override
-    protected void initChannel(DatagramChannel datagramChannel) throws Exception {
-        ChannelPipeline channelPipeline = datagramChannel.pipeline();
-
-        channelPipeline.addLast(new LoggingHandler());
-    }
 }

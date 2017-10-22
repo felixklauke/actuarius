@@ -22,32 +22,29 @@
  * SOFTWARE.
  */
 
-package de.d3adspace.actuarius.server.initializer;
+package de.d3adspace.actuarius.server.handler;
 
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.socket.DatagramChannel;
-import io.netty.handler.logging.LoggingHandler;
+import de.d3adspace.actuarius.server.protocol.DNSQuery;
+import de.d3adspace.actuarius.server.query.IQueryManager;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 
 import javax.inject.Inject;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public class ActuariusDatagramChannelInitializer extends ChannelInitializer<DatagramChannel> {
+public class ActuariusDNSQueryHandler extends SimpleChannelInboundHandler<DNSQuery> {
 
-    private final ChannelHandler channelHandler;
+    private final IQueryManager queryManager;
 
     @Inject
-    public ActuariusDatagramChannelInitializer(ChannelHandler channelHandler) {
-        this.channelHandler = channelHandler;
+    public ActuariusDNSQueryHandler(IQueryManager queryManager) {
+        this.queryManager = queryManager;
     }
 
     @Override
-    protected void initChannel(DatagramChannel datagramChannel) throws Exception {
-        ChannelPipeline channelPipeline = datagramChannel.pipeline();
-
-        channelPipeline.addLast(new LoggingHandler());
+    protected void channelRead0(ChannelHandlerContext ctx, DNSQuery msg) throws Exception {
+        ctx.writeAndFlush(queryManager.processDnsQuery(msg));
     }
 }

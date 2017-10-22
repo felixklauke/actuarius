@@ -28,4 +28,5 @@ package de.d3adspace.actuarius.server.repository;
  * @author Felix Klauke <fklauke@itemis.de>
  */
 public class NameRepositoryImpl implements INameRepository {
+
 }
