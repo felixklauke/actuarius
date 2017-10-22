@@ -28,4 +28,8 @@ package de.d3adspace.actuarius.protocol;
  * @author Felix Klauke <fklauke@itemis.de>
  */
 public interface DNSMessage {
+
+    int getId();
+
+    DNSOperationCode getOperationCode();
 }

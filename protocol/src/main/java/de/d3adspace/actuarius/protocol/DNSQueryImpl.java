@@ -27,7 +27,9 @@ package de.d3adspace.actuarius.protocol;
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public interface DNSResponse extends DNSMessage {
+public class DNSQueryImpl extends DNSMessageImpl implements DNSQuery {
 
-
+    public DNSQueryImpl(int messageId, DNSOperationCode operationCode) {
+        super(messageId, operationCode);
+    }
 }
