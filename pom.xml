@@ -35,6 +35,7 @@
     <modules>
         <module>server</module>
         <module>protocol</module>
+        <module>codec</module>
     </modules>
 
 </project>
