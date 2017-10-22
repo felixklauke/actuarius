@@ -27,5 +27,7 @@ package de.d3adspace.actuarius.protocol;
 /**
  * @author Felix Klauke <fklauke@itemis.de>
  */
-public interface DNSResponse {
+public interface DNSResponse extends DNSMessage {
+
+    DNSOperationCode getOperationCode();
 }
