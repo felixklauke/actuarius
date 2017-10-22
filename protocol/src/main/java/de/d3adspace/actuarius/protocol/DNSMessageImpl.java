@@ -37,11 +37,13 @@ public class DNSMessageImpl implements DNSMessage {
         this.operationCode = operationCode;
     }
 
-    public DNSOperationCode getOperationCode() {
-        return operationCode;
+    @Override
+    public int getId() {
+        return messageId;
     }
 
-    public int getMessageId() {
-        return messageId;
+    @Override
+    public DNSOperationCode getOperationCode() {
+        return operationCode;
     }
 }

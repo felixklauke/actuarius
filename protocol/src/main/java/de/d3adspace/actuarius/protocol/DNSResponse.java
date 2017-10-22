@@ -29,5 +29,5 @@ package de.d3adspace.actuarius.protocol;
  */
 public interface DNSResponse extends DNSMessage {
 
-    DNSOperationCode getOperationCode();
+
 }
