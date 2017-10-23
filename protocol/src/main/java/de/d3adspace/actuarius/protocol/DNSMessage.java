@@ -32,4 +32,8 @@ public interface DNSMessage {
     int getId();
 
     DNSOperationCode getOperationCode();
+
+    DNSMessageType getMessageType();
+
+    boolean isTruncated();
 }
