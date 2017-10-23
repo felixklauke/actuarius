@@ -24,7 +24,9 @@
 
 package de.d3adspace.actuarius.codec;
 
+import de.d3adspace.actuarius.protocol.DNSOperationCode;
 import de.d3adspace.actuarius.protocol.DNSQuery;
+import de.d3adspace.actuarius.protocol.DNSQueryImpl;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.DatagramPacket;
@@ -41,10 +43,6 @@ public class DNSQueryDecoder extends MessageToMessageDecoder<DatagramPacket> {
         ByteBuf packetContent = datagramPacket.content();
         DNSQuery query = decodeQuery(packetContent, datagramPacket);
 
-        if (query == null) {
-            return;
-        }
-
         out.add(query);
     }
 
@@ -52,6 +50,10 @@ public class DNSQueryDecoder extends MessageToMessageDecoder<DatagramPacket> {
         int packetId = packetContent.readUnsignedShort();
         int flagsContainer = packetContent.readUnsignedShort();
 
-        return null;
+        return new DNSQueryImpl(packetId, getOperationCode(flagsContainer));
+    }
+
+    private DNSOperationCode getOperationCode(int flagsContainer) {
+        return DNSOperationCode.getCodeViaId((byte) (flagsContainer >> 11 & 0xf));
     }
 }
