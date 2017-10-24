@@ -30,11 +30,15 @@ package de.d3adspace.actuarius.protocol;
 public class DNSMessageImpl implements DNSMessage {
 
     private final int messageId;
+    private final DNSMessageType messageType;
     private final DNSOperationCode operationCode;
+    private final boolean truncated;
 
-    public DNSMessageImpl(int messageId, DNSOperationCode operationCode) {
+    DNSMessageImpl(int messageId, DNSMessageType messageType, DNSOperationCode operationCode, boolean truncated) {
         this.messageId = messageId;
+        this.messageType = messageType;
         this.operationCode = operationCode;
+        this.truncated = truncated;
     }
 
     @Override
@@ -45,5 +49,15 @@ public class DNSMessageImpl implements DNSMessage {
     @Override
     public DNSOperationCode getOperationCode() {
         return operationCode;
+    }
+
+    @Override
+    public DNSMessageType getMessageType() {
+        return messageType;
+    }
+
+    @Override
+    public boolean isTruncated() {
+        return truncated;
     }
 }

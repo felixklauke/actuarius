@@ -29,7 +29,7 @@ package de.d3adspace.actuarius.protocol;
  */
 public class DNSQueryImpl extends DNSMessageImpl implements DNSQuery {
 
-    public DNSQueryImpl(int messageId, DNSOperationCode operationCode) {
-        super(messageId, operationCode);
+    public DNSQueryImpl(int messageId, DNSMessageType messageType, DNSOperationCode operationCode, boolean truncated) {
+        super(messageId, messageType, operationCode, truncated);
     }
 }

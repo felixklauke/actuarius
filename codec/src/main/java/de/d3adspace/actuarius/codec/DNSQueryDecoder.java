@@ -54,7 +54,7 @@ public class DNSQueryDecoder extends MessageToMessageDecoder<DatagramPacket> {
         DNSOperationCode operationCode = getOperationCode(flagsContainer);
         DNSMessageType messageType = getMessageType(flagsContainer);
 
-        return new DNSQueryImpl(packetId, operationCode);
+        return new DNSQueryImpl(packetId, messageType, operationCode, false);
     }
 
     private DNSMessageType getMessageType(int flagsContainer) {
