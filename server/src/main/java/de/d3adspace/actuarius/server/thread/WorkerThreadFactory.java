@@ -24,9 +24,8 @@
 
 package de.d3adspace.actuarius.server.thread;
 
-import de.d3adspace.actuarius.server.annotation.WorkerGroupFactoryThreadNamePrefix;
-
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
@@ -34,7 +33,7 @@ import javax.inject.Inject;
 public class WorkerThreadFactory extends PrefixedThreadFactory {
 
     @Inject
-    public WorkerThreadFactory(@WorkerGroupFactoryThreadNamePrefix String prefix) {
+    public WorkerThreadFactory(@Named("workerGroupThreadNamePrefix") String prefix) {
         super(prefix);
     }
 }

@@ -24,7 +24,6 @@
 
 package de.d3adspace.actuarius.server.agent;
 
-import de.d3adspace.actuarius.server.annotation.WorkerGroup;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.Channel;
@@ -34,6 +33,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.socket.DatagramChannel;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
@@ -45,7 +45,7 @@ public class ActuariusDatagramAgent implements IActuariusAgent {
     private final Class<? extends Channel> channelClass;
 
     @Inject
-    public ActuariusDatagramAgent(ChannelInitializer<DatagramChannel> datagramChannelChannelInitializer, @WorkerGroup EventLoopGroup workerGroup, Class<? extends DatagramChannel> channelClass) {
+    public ActuariusDatagramAgent(ChannelInitializer<DatagramChannel> datagramChannelChannelInitializer, @Named("workerGroup") EventLoopGroup workerGroup, Class<? extends DatagramChannel> channelClass) {
         this.datagramChannelChannelInitializer = datagramChannelChannelInitializer;
         this.workerGroup = workerGroup;
         this.channelClass = channelClass;

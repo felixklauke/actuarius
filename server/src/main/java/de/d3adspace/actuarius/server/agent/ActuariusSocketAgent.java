@@ -24,8 +24,6 @@
 
 package de.d3adspace.actuarius.server.agent;
 
-import de.d3adspace.actuarius.server.annotation.BossGroup;
-import de.d3adspace.actuarius.server.annotation.WorkerGroup;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -33,6 +31,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.ServerChannel;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
@@ -45,7 +44,7 @@ public class ActuariusSocketAgent implements IActuariusAgent {
     private final ChannelInitializer<Channel> channelInitializer;
 
     @Inject
-    public ActuariusSocketAgent(@BossGroup EventLoopGroup bossGroup, @WorkerGroup EventLoopGroup workerGroup, Class<? extends ServerChannel> serverChannelClass, ChannelInitializer<Channel> channelInitializer) {
+    public ActuariusSocketAgent(@Named("bossGroup") EventLoopGroup bossGroup, @Named("workerGroup") EventLoopGroup workerGroup, Class<? extends ServerChannel> serverChannelClass, ChannelInitializer<Channel> channelInitializer) {
         this.bossGroup = bossGroup;
         this.workerGroup = workerGroup;
         this.serverChannelClass = serverChannelClass;

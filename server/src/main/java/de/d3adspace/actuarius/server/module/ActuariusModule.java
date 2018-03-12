@@ -26,13 +26,13 @@ package de.d3adspace.actuarius.server.module;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
+import com.google.inject.name.Names;
 import de.d3adspace.actuarius.server.ActuariusConstants;
 import de.d3adspace.actuarius.server.ActuariusServerImpl;
 import de.d3adspace.actuarius.server.IActuariusServer;
 import de.d3adspace.actuarius.server.agent.ActuariusDatagramAgent;
 import de.d3adspace.actuarius.server.agent.ActuariusSocketAgent;
 import de.d3adspace.actuarius.server.agent.IActuariusAgent;
-import de.d3adspace.actuarius.server.annotation.*;
 import de.d3adspace.actuarius.server.initializer.ActuariusChannelInitializer;
 import de.d3adspace.actuarius.server.initializer.ActuariusDatagramChannelInitializer;
 import de.d3adspace.actuarius.server.provider.BossGroupProvider;
@@ -59,10 +59,10 @@ public class ActuariusModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bindConstant().annotatedWith(BossGroupThreadCount.class).to(ActuariusConstants.BOSS_GROUP_THREAD_COUNT);
-        bindConstant().annotatedWith(WorkerGroupThreadCount.class).to(ActuariusConstants.WORKER_GROUP_THREAD_COUNT);
-        bindConstant().annotatedWith(BossGroupFactoryThreadNamePrefix.class).to(ActuariusConstants.BOSS_GROUP_PREFIX);
-        bindConstant().annotatedWith(WorkerGroupFactoryThreadNamePrefix.class).to(ActuariusConstants.WORKER_GROUP_PREFIX);
+        bindConstant().annotatedWith(Names.named("bossGroupThreadCount")).to(ActuariusConstants.BOSS_GROUP_THREAD_COUNT);
+        bindConstant().annotatedWith(Names.named("workerGroupThreadCount")).to(ActuariusConstants.WORKER_GROUP_THREAD_COUNT);
+        bindConstant().annotatedWith(Names.named("bossGroupThreadNamePrefix")).to(ActuariusConstants.BOSS_GROUP_PREFIX);
+        bindConstant().annotatedWith(Names.named("workerGroupThreadNamePrefix")).to(ActuariusConstants.WORKER_GROUP_PREFIX);
 
         bind(new TypeLiteral<Class<? extends ServerChannel>>() {
         }).toInstance(NettyUtils.getServerChannelClass());
@@ -70,11 +70,11 @@ public class ActuariusModule extends AbstractModule {
         bind(new TypeLiteral<Class<? extends DatagramChannel>>() {
         }).toInstance(NettyUtils.getServerDatagramChannelClass());
 
-        bind(ThreadFactory.class).annotatedWith(BossGroupFactory.class).to(BossThreadFactory.class);
-        bind(ThreadFactory.class).annotatedWith(WorkerGroupFactory.class).to(WorkerThreadFactory.class);
+        bind(ThreadFactory.class).annotatedWith(Names.named("bossGroupThreadFactory")).to(BossThreadFactory.class);
+        bind(ThreadFactory.class).annotatedWith(Names.named("workerGroupThreadFactory")).to(WorkerThreadFactory.class);
 
-        bind(EventLoopGroup.class).annotatedWith(BossGroup.class).toProvider(BossGroupProvider.class);
-        bind(EventLoopGroup.class).annotatedWith(WorkerGroup.class).toProvider(WorkerGroupProvider.class);
+        bind(EventLoopGroup.class).annotatedWith(Names.named("bossGroup")).toProvider(BossGroupProvider.class);
+        bind(EventLoopGroup.class).annotatedWith(Names.named("workerGroup")).toProvider(WorkerGroupProvider.class);
 
         bind(new TypeLiteral<ChannelInitializer<Channel>>() {
         }).to(ActuariusChannelInitializer.class);
@@ -86,8 +86,8 @@ public class ActuariusModule extends AbstractModule {
 
         bind(IQueryManager.class).to(QueryManagerImpl.class);
 
-        bind(IActuariusAgent.class).annotatedWith(DatagramAgent.class).to(ActuariusDatagramAgent.class);
-        bind(IActuariusAgent.class).annotatedWith(SocketAgent.class).to(ActuariusSocketAgent.class);
+        bind(IActuariusAgent.class).annotatedWith(Names.named("datagramAgent")).to(ActuariusDatagramAgent.class);
+        bind(IActuariusAgent.class).annotatedWith(Names.named("socketAgent")).to(ActuariusSocketAgent.class);
 
         bind(IActuariusServer.class).to(ActuariusServerImpl.class);
     }

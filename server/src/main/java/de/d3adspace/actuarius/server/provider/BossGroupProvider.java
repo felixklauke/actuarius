@@ -24,10 +24,8 @@
 
 package de.d3adspace.actuarius.server.provider;
 
-import de.d3adspace.actuarius.server.annotation.BossGroupFactory;
-import de.d3adspace.actuarius.server.annotation.BossGroupThreadCount;
-
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.concurrent.ThreadFactory;
 
 /**
@@ -36,7 +34,7 @@ import java.util.concurrent.ThreadFactory;
 public class BossGroupProvider extends AbstractEventLoopGroupProvider {
 
     @Inject
-    public BossGroupProvider(@BossGroupFactory ThreadFactory threadFactory, @BossGroupThreadCount int threadAmount) {
+    public BossGroupProvider(@Named("bossGroupThreadFactory") ThreadFactory threadFactory, @Named("bossGroupThreadCount") int threadAmount) {
         super(threadFactory, threadAmount);
     }
 }
