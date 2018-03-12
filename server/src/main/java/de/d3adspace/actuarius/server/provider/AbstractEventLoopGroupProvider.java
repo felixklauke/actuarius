@@ -38,7 +38,7 @@ public class AbstractEventLoopGroupProvider implements Provider<EventLoopGroup> 
     private final ThreadFactory threadFactory;
     private final int threadAmount;
 
-    public AbstractEventLoopGroupProvider(ThreadFactory threadFactory, int threadAmount) {
+    AbstractEventLoopGroupProvider(ThreadFactory threadFactory, int threadAmount) {
         this.threadFactory = threadFactory;
         this.threadAmount = threadAmount;
     }

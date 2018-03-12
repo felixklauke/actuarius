@@ -25,10 +25,9 @@
 package de.d3adspace.actuarius.server;
 
 import de.d3adspace.actuarius.server.agent.IActuariusAgent;
-import de.d3adspace.actuarius.server.annotation.DatagramAgent;
-import de.d3adspace.actuarius.server.annotation.SocketAgent;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
@@ -39,7 +38,7 @@ public class ActuariusServerImpl implements IActuariusServer {
     private final IActuariusAgent socketAgent;
 
     @Inject
-    public ActuariusServerImpl(@DatagramAgent IActuariusAgent datagramAgent, @SocketAgent IActuariusAgent socketAgent) {
+    public ActuariusServerImpl(@Named("datagramAgent") IActuariusAgent datagramAgent, @Named("socketAgent") IActuariusAgent socketAgent) {
         this.datagramAgent = datagramAgent;
         this.socketAgent = socketAgent;
     }

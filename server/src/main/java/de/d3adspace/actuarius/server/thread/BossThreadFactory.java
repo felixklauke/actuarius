@@ -24,9 +24,8 @@
 
 package de.d3adspace.actuarius.server.thread;
 
-import de.d3adspace.actuarius.server.annotation.BossGroupFactoryThreadNamePrefix;
-
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * @author Felix Klauke <fklauke@itemis.de>
@@ -34,7 +33,7 @@ import javax.inject.Inject;
 public class BossThreadFactory extends PrefixedThreadFactory {
 
     @Inject
-    public BossThreadFactory(@BossGroupFactoryThreadNamePrefix String prefix) {
+    public BossThreadFactory(@Named("bossGroupThreadNamePrefix") String prefix) {
         super(prefix);
     }
 }

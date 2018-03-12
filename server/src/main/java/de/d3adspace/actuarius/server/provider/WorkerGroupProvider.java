@@ -24,10 +24,8 @@
 
 package de.d3adspace.actuarius.server.provider;
 
-import de.d3adspace.actuarius.server.annotation.WorkerGroupFactory;
-import de.d3adspace.actuarius.server.annotation.WorkerGroupThreadCount;
-
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.concurrent.ThreadFactory;
 
 /**
@@ -36,7 +34,7 @@ import java.util.concurrent.ThreadFactory;
 public class WorkerGroupProvider extends AbstractEventLoopGroupProvider {
 
     @Inject
-    public WorkerGroupProvider(@WorkerGroupFactory ThreadFactory threadFactory, @WorkerGroupThreadCount int threadAmount) {
+    public WorkerGroupProvider(@Named("workerGroupThreadFactory") ThreadFactory threadFactory, @Named("workerGroupThreadCount") int threadAmount) {
         super(threadFactory, threadAmount);
     }
 }
