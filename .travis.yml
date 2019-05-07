@@ -1,2 +1,22 @@
+################
+### Language ###
+################
 language: java
-script: mvn clean test
+
+###########
+### JDK ###
+###########
+jdk:
+  - oraclejdk8
+
+#####################
+### Notifications ###
+#####################
+notifications:
+  email: false
+
+####################
+### Build script ###
+####################
+script:
+  - mvn clean compile package
