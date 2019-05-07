@@ -56,6 +56,8 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.16.Final</version>
         </dependency>
+
+        <!-- Actuarius Protocol -->
         <dependency>
             <groupId>de.d3adspace.actuarius</groupId>
             <artifactId>actuarius-protocol</artifactId>
