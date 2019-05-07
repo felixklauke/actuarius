@@ -31,7 +31,7 @@ import javax.inject.Provider;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * @author Felix Klauke <fklauke@itemis.de>
+ * @author Felix Klauke <info@felix-klauke.de>
  */
 public class AbstractEventLoopGroupProvider implements Provider<EventLoopGroup> {
 

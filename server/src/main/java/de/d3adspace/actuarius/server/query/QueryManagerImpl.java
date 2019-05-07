@@ -31,7 +31,7 @@ import de.d3adspace.actuarius.server.repository.INameRepository;
 import javax.inject.Inject;
 
 /**
- * @author Felix Klauke <fklauke@itemis.de>
+ * @author Felix Klauke <info@felix-klauke.de>
  */
 public class QueryManagerImpl implements IQueryManager {
 

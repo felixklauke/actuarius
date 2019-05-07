@@ -36,7 +36,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * @author Felix Klauke <fklauke@itemis.de>
+ * @author Felix Klauke <info@felix-klauke.de>
  */
 public class ActuariusDatagramAgent implements IActuariusAgent {
 

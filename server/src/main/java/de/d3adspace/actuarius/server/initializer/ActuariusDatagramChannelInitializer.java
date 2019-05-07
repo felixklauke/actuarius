@@ -33,7 +33,7 @@ import io.netty.handler.logging.LoggingHandler;
 import javax.inject.Inject;
 
 /**
- * @author Felix Klauke <fklauke@itemis.de>
+ * @author Felix Klauke <info@felix-klauke.de>
  */
 public class ActuariusDatagramChannelInitializer extends ChannelInitializer<DatagramChannel> {
 

@@ -53,7 +53,7 @@ import io.netty.channel.socket.DatagramChannel;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * @author Felix Klauke <fklauke@itemis.de>
+ * @author Felix Klauke <info@felix-klauke.de>
  */
 public class ActuariusModule extends AbstractModule {
 

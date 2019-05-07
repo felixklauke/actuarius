@@ -31,7 +31,7 @@ import io.netty.handler.codec.MessageToMessageEncoder;
 import java.util.List;
 
 /**
- * @author Felix Klauke <fklauke@itemis.de>
+ * @author Felix Klauke <info@felix-klauke.de>
  */
 public class DNSResponseEncoder extends MessageToMessageEncoder<DNSResponse> {
 

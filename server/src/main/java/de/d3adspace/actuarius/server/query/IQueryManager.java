@@ -28,7 +28,7 @@ import de.d3adspace.actuarius.protocol.DNSQuery;
 import de.d3adspace.actuarius.protocol.DNSResponse;
 
 /**
- * @author Felix Klauke <fklauke@itemis.de>
+ * @author Felix Klauke <info@felix-klauke.de>
  */
 public interface IQueryManager {
 

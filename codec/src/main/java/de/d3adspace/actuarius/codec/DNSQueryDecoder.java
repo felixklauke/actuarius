@@ -36,7 +36,7 @@ import io.netty.handler.codec.MessageToMessageDecoder;
 import java.util.List;
 
 /**
- * @author Felix Klauke <fklauke@itemis.de>
+ * @author Felix Klauke <info@felix-klauke.de>
  */
 public class DNSQueryDecoder extends MessageToMessageDecoder<DatagramPacket> {
 

@@ -30,7 +30,7 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.handler.logging.LoggingHandler;
 
 /**
- * @author Felix Klauke <fklauke@itemis.de>
+ * @author Felix Klauke <info@felix-klauke.de>
  */
 public class ActuariusChannelInitializer extends ChannelInitializer<Channel> {
 
