@@ -72,4 +72,13 @@ public class ActuariusDatagramAgent implements IActuariusAgent {
     public boolean isRunning() {
         return channel != null && channel.isOpen();
     }
+
+    @Override
+    public void stop() {
+        if (channel == null) {
+            return;
+        }
+
+        channel.close();
+    }
 }

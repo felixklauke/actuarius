@@ -51,7 +51,8 @@ public class ActuariusServerImpl implements IActuariusServer {
 
     @Override
     public void stop() {
-
+        datagramAgent.stop();
+        socketAgent.stop();
     }
 
     @Override

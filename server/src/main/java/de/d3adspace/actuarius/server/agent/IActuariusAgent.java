@@ -32,4 +32,6 @@ public interface IActuariusAgent {
     void bootstrap();
 
     boolean isRunning();
+
+    void stop();
 }
