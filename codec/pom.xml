@@ -35,6 +35,19 @@
 
     <artifactId>actuarius-codec</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <!-- Netty -->
         <dependency>
@@ -43,7 +56,7 @@
             <version>4.1.16.Final</version>
         </dependency>
         <dependency>
-            <groupId>de.d3adspace</groupId>
+            <groupId>de.d3adspace.actuarius</groupId>
             <artifactId>actuarius-protocol</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
