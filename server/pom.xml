@@ -36,6 +36,8 @@
     <artifactId>actuarius-server</artifactId>
 
     <build>
+        <finalName>actuarius-server</finalName>
+
         <plugins>
             <!-- Compile sources -->
             <plugin>

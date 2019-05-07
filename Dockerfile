@@ -1,8 +1,51 @@
-FROM maven:3.5.0-jdk-9
+##################
+### Base image ###
+##################
+FROM maven:latest as build
 
+##################
+### Maintainer ###
+##################
+MAINTAINER Felix KLauke <info@felix-klauke.de>
+
+#########################
+### Working directory ###
+#########################
+WORKDIR /workspace/app
+
+##################
+### Copy files ###
+##################
+COPY . .
+
+#############
+### Build ###
+#############
+RUN mvn clean package
+
+###############
+### Runtime ###
+###############
+FROM openjdk:11-jdk-alpine AS runtime
+
+####################
+### Dependencies ###
+####################
+ARG DEPENDENCY=/opt/actuarius
+
+#########################
+### Copy dependencies ###
+#########################
+COPY --from=build server/target/actuarius-server.jar .
+
+#############
+### Ports ###
+#############
 EXPOSE 53
 EXPOSE 853
 
-ADD server/target/actuarius-server-1.0-SNAPSHOT.jar actuarius-server.jar
+###############
+### Run app ###
+###############
+ENTRYPOINT ["java", "-jar", "actuarius-server.jar" ]
 
-ENTRYPOINT ["java", "-jar", "actuarius-server.jar"]
