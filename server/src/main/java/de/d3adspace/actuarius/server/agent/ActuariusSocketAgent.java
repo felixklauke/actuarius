@@ -42,6 +42,7 @@ public class ActuariusSocketAgent implements IActuariusAgent {
     private final EventLoopGroup workerGroup;
     private final Class<? extends ServerChannel> serverChannelClass;
     private final ChannelInitializer<Channel> channelInitializer;
+    private Channel channel;
 
     @Inject
     public ActuariusSocketAgent(@Named("bossGroup") EventLoopGroup bossGroup, @Named("workerGroup") EventLoopGroup workerGroup, Class<? extends ServerChannel> serverChannelClass, ChannelInitializer<Channel> channelInitializer) {
@@ -59,7 +60,7 @@ public class ActuariusSocketAgent implements IActuariusAgent {
                     .channel(serverChannelClass)
                     .childHandler(channelInitializer);
 
-            serverBootstrap.bind(53).sync();
+            channel = serverBootstrap.bind(53).sync().channel();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -67,6 +68,6 @@ public class ActuariusSocketAgent implements IActuariusAgent {
 
     @Override
     public boolean isRunning() {
-        return false;
+        return channel != null && channel.isOpen();
     }
 }

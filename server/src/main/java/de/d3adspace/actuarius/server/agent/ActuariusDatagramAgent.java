@@ -44,6 +44,8 @@ public class ActuariusDatagramAgent implements IActuariusAgent {
     private final EventLoopGroup workerGroup;
     private final Class<? extends Channel> channelClass;
 
+    private Channel channel;
+
     @Inject
     public ActuariusDatagramAgent(ChannelInitializer<DatagramChannel> datagramChannelChannelInitializer, @Named("workerGroup") EventLoopGroup workerGroup, Class<? extends DatagramChannel> channelClass) {
         this.datagramChannelChannelInitializer = datagramChannelChannelInitializer;
@@ -60,7 +62,7 @@ public class ActuariusDatagramAgent implements IActuariusAgent {
                     .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                     .handler(datagramChannelChannelInitializer);
 
-            bootstrap.bind(53).sync();
+            channel = bootstrap.bind(53).sync().channel();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -68,6 +70,6 @@ public class ActuariusDatagramAgent implements IActuariusAgent {
 
     @Override
     public boolean isRunning() {
-        return false;
+        return channel != null && channel.isOpen();
     }
 }
