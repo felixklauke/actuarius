@@ -39,8 +39,6 @@ import de.d3adspace.actuarius.server.provider.BossGroupProvider;
 import de.d3adspace.actuarius.server.provider.WorkerGroupProvider;
 import de.d3adspace.actuarius.server.query.IQueryManager;
 import de.d3adspace.actuarius.server.query.QueryManagerImpl;
-import de.d3adspace.actuarius.server.repository.INameRepository;
-import de.d3adspace.actuarius.server.repository.NameRepositoryImpl;
 import de.d3adspace.actuarius.server.thread.BossThreadFactory;
 import de.d3adspace.actuarius.server.thread.WorkerThreadFactory;
 import de.d3adspace.actuarius.server.utils.NettyUtils;
@@ -81,8 +79,6 @@ public class ActuariusModule extends AbstractModule {
 
         bind(new TypeLiteral<ChannelInitializer<DatagramChannel>>() {
         }).to(ActuariusDatagramChannelInitializer.class);
-
-        bind(INameRepository.class).to(NameRepositoryImpl.class);
 
         bind(IQueryManager.class).to(QueryManagerImpl.class);
 
